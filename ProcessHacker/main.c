@@ -167,6 +167,8 @@ INT WINAPI wWinMain(
         }
     }
 
+#ifndef SP_SLAVER
+
     if (PhGetIntegerSetting(L"EnableKph") &&
         !PhStartupParameters.NoKph &&
         !PhStartupParameters.CommandMode &&
@@ -175,6 +177,8 @@ INT WINAPI wWinMain(
     {
         PhInitializeKph();
     }
+
+#endif
 
 #ifdef DEBUG
     dbg.ClientId = NtCurrentTeb()->ClientId;
@@ -219,7 +223,8 @@ INT WINAPI wWinMain(
         policyInfo.SignaturePolicy.Flags = 0;
         policyInfo.SignaturePolicy.MicrosoftSignedOnly = TRUE;
 
-        NtSetInformationProcess(NtCurrentProcess(), ProcessMitigationPolicy, &policyInfo, sizeof(PROCESS_MITIGATION_POLICY_INFORMATION));
+        NtSetInformationProcess(NtCurrentProcess(), ProcessMitigationPolicy, &policyInfo,
+            sizeof(PROCESS_MITIGATION_POLICY_INFORMATION));
     }
 #endif
 
@@ -532,8 +537,14 @@ VOID PhInitializeFont(
         DeleteObject(PhApplicationFont);
 
     if (
+
+#ifdef SP_SLAVER
+        !(PhApplicationFont = PhCreateFont(L"宋体", 10, FW_NORMAL)) &&
+        !(PhApplicationFont = PhCreateFont(L"宋体", 10, FW_NORMAL))
+#else
         !(PhApplicationFont = PhCreateFont(L"Microsoft Sans Serif", 8, FW_NORMAL)) &&
         !(PhApplicationFont = PhCreateFont(L"Tahoma", 8, FW_NORMAL))
+#endif
         )
     {
         if (SystemParametersInfo(SPI_GETNONCLIENTMETRICS, 0, &metrics, 0))
@@ -761,7 +772,7 @@ BOOLEAN PhInitializeNamespacePolicy(
     UNICODE_STRING objectNameUs;
     PH_FORMAT format[2];
 
-    PhInitFormatS(&format[0], L"PhMutant_");
+    PhInitFormatS(&format[0], L"PhMutant_"); /*变异的*/
     PhInitFormatU(&format[1], HandleToUlong(NtCurrentProcessId()));
 
     if (!PhFormatToBuffer(
@@ -1453,6 +1464,13 @@ VOID PhpProcessStartupParameters(
 
     if (PhStartupParameters.InstallKph)
     {
+
+#ifdef SP_SLAVER
+
+        RtlExitUserProcess(STATUS_NOT_SUPPORTED);
+
+#else
+
         NTSTATUS status;
         PPH_STRING applicationDirectory;
         PPH_STRING kprocesshackerFileName;
@@ -1473,10 +1491,20 @@ VOID PhpProcessStartupParameters(
             PhShowStatus(NULL, L"Unable to install KProcessHacker", status, 0);
 
         RtlExitUserProcess(status);
+
+#endif // SP_SLAVER
+
     }
 
     if (PhStartupParameters.UninstallKph)
     {
+
+#ifdef SP_SLAVER
+
+        RtlExitUserProcess(STATUS_NOT_SUPPORTED);
+
+#else
+
         NTSTATUS status;
 
         status = KphUninstall(KPH_DEVICE_SHORT_NAME);
@@ -1485,6 +1513,8 @@ VOID PhpProcessStartupParameters(
             PhShowStatus(NULL, L"Unable to uninstall KProcessHacker", status, 0);
 
         RtlExitUserProcess(status);
+
+#endif
     }
 
     if (PhStartupParameters.Elevate && !PhGetOwnTokenAttributes().Elevated)

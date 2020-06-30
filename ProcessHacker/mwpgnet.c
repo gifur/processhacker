@@ -130,7 +130,7 @@ BOOLEAN PhMwpNetworkPageCallback(
             menu = menuInfo->Menu;
             startIndex = menuInfo->StartIndex;
 
-            PhInsertEMenuItem(menu, PhCreateEMenuItem(0, ID_VIEW_HIDEWAITINGCONNECTIONS, L"&Hide waiting connections", NULL, NULL), startIndex);
+            PhInsertEMenuItem(menu, PhCreateEMenuItem(0, ID_VIEW_HIDEWAITINGCONNECTIONS, L"隐藏等待的连接(&H)", NULL, NULL), startIndex);
 
             if (NetworkFilterEntry && (menuItem = PhFindEMenuItem(menu, 0, NULL, ID_VIEW_HIDEWAITINGCONNECTIONS)))
                 menuItem->Flags |= PH_EMENU_CHECKED;

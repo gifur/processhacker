@@ -22,6 +22,8 @@
 #include <phfwddef.h>
 #include <appsup.h>
 
+#define SP_SLAVER 1
+
 // main
 
 typedef struct _PH_STARTUP_PARAMETERS

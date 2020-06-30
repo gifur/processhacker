@@ -221,15 +221,15 @@ VOID PhNfLoadStage2(
     PhNfMiniInfoEnabled = !!PhGetIntegerSetting(L"MiniInfoWindowEnabled");
     PhNfLoadGuids();
 
-    PhNfRegisterIcon(NULL, PH_TRAY_ICON_ID_CPU_USAGE, PhNfpTrayIconItemGuids[PH_TRAY_ICON_GUID_CPU_USAGE], NULL, L"CPU &usage", 0, PhNfpCpuUsageIconUpdateCallback, NULL);
-    PhNfRegisterIcon(NULL, PH_TRAY_ICON_ID_CPU_HISTORY, PhNfpTrayIconItemGuids[PH_TRAY_ICON_GUID_CPU_HISTORY], NULL, L"CPU &history", 0, PhNfpCpuHistoryIconUpdateCallback, NULL);
-    PhNfRegisterIcon(NULL, PH_TRAY_ICON_ID_IO_HISTORY, PhNfpTrayIconItemGuids[PH_TRAY_ICON_GUID_IO_HISTORY], NULL, L"&I/O history", 0, PhNfpIoHistoryIconUpdateCallback, NULL);
-    PhNfRegisterIcon(NULL, PH_TRAY_ICON_ID_COMMIT_HISTORY, PhNfpTrayIconItemGuids[PH_TRAY_ICON_GUID_COMMIT_HISTORY], NULL, L"&Commit charge history", 0, PhNfpCommitHistoryIconUpdateCallback, NULL);
-    PhNfRegisterIcon(NULL, PH_TRAY_ICON_ID_PHYSICAL_HISTORY, PhNfpTrayIconItemGuids[PH_TRAY_ICON_GUID_PHYSICAL_HISTORY], NULL, L"&Physical memory history", 0, PhNfpPhysicalHistoryIconUpdateCallback, NULL);
-    PhNfRegisterIcon(NULL, PH_TRAY_ICON_ID_CPU_TEXT, PhNfpTrayIconItemGuids[PH_TRAY_ICON_GUID_CPU_TEXT], NULL, L"CPU usage (text)", 0, PhNfpCpuUsageTextIconUpdateCallback, NULL);
-    PhNfRegisterIcon(NULL, PH_TRAY_ICON_ID_IO_TEXT, PhNfpTrayIconItemGuids[PH_TRAY_ICON_GUID_IO_TEXT], NULL, L"IO usage (text)", 0, PhNfpIoUsageTextIconUpdateCallback, NULL);
-    PhNfRegisterIcon(NULL, PH_TRAY_ICON_ID_COMMIT_TEXT, PhNfpTrayIconItemGuids[PH_TRAY_ICON_GUID_COMMIT_TEXT], NULL, L"Commit usage (text)", 0, PhNfpCommitTextIconUpdateCallback, NULL);
-    PhNfRegisterIcon(NULL, PH_TRAY_ICON_ID_PHYSICAL_TEXT, PhNfpTrayIconItemGuids[PH_TRAY_ICON_GUID_PHYSICAL_TEXT], NULL, L"Physical usage (text)", 0, PhNfpPhysicalUsageTextIconUpdateCallback, NULL);
+    PhNfRegisterIcon(NULL, PH_TRAY_ICON_ID_CPU_USAGE, PhNfpTrayIconItemGuids[PH_TRAY_ICON_GUID_CPU_USAGE], NULL, L"CPU 占用率(&U)", 0, PhNfpCpuUsageIconUpdateCallback, NULL);
+    PhNfRegisterIcon(NULL, PH_TRAY_ICON_ID_CPU_HISTORY, PhNfpTrayIconItemGuids[PH_TRAY_ICON_GUID_CPU_HISTORY], NULL, L"CPU 跟踪(&H)", 0, PhNfpCpuHistoryIconUpdateCallback, NULL);
+    PhNfRegisterIcon(NULL, PH_TRAY_ICON_ID_IO_HISTORY, PhNfpTrayIconItemGuids[PH_TRAY_ICON_GUID_IO_HISTORY], NULL, L"I/O 跟踪(&I)", 0, PhNfpIoHistoryIconUpdateCallback, NULL);
+    PhNfRegisterIcon(NULL, PH_TRAY_ICON_ID_COMMIT_HISTORY, PhNfpTrayIconItemGuids[PH_TRAY_ICON_GUID_COMMIT_HISTORY], NULL, L"内存提交跟踪(&C)", 0, PhNfpCommitHistoryIconUpdateCallback, NULL);
+    PhNfRegisterIcon(NULL, PH_TRAY_ICON_ID_PHYSICAL_HISTORY, PhNfpTrayIconItemGuids[PH_TRAY_ICON_GUID_PHYSICAL_HISTORY], NULL, L"物理内存跟踪(&P)", 0, PhNfpPhysicalHistoryIconUpdateCallback, NULL);
+    PhNfRegisterIcon(NULL, PH_TRAY_ICON_ID_CPU_TEXT, PhNfpTrayIconItemGuids[PH_TRAY_ICON_GUID_CPU_TEXT], NULL, L"CPU 占用率 (文本)", 0, PhNfpCpuUsageTextIconUpdateCallback, NULL);
+    PhNfRegisterIcon(NULL, PH_TRAY_ICON_ID_IO_TEXT, PhNfpTrayIconItemGuids[PH_TRAY_ICON_GUID_IO_TEXT], NULL, L"IO 占用率 (文本)", 0, PhNfpIoUsageTextIconUpdateCallback, NULL);
+    PhNfRegisterIcon(NULL, PH_TRAY_ICON_ID_COMMIT_TEXT, PhNfpTrayIconItemGuids[PH_TRAY_ICON_GUID_COMMIT_TEXT], NULL, L"内存占用 (文本)", 0, PhNfpCommitTextIconUpdateCallback, NULL);
+    PhNfRegisterIcon(NULL, PH_TRAY_ICON_ID_PHYSICAL_TEXT, PhNfpTrayIconItemGuids[PH_TRAY_ICON_GUID_PHYSICAL_TEXT], NULL, L"物理内存占用 (文本)", 0, PhNfpPhysicalUsageTextIconUpdateCallback, NULL);
 
     if (PhPluginsEnabled)
     {
@@ -1104,7 +1104,7 @@ VOID PhNfpCpuHistoryIconUpdateCallback(
     else
         maxCpuProcessItem = NULL;
 
-    PhInitFormatS(&format[0], L"CPU Usage: ");
+    PhInitFormatS(&format[0], L"CPU 占用率: ");
     PhInitFormatF(&format[1], ((DOUBLE)PhCpuKernelUsage + PhCpuUserUsage) * 100, 2);
     PhInitFormatC(&format[2], '%');
 
@@ -1296,7 +1296,7 @@ VOID PhNfpCommitHistoryIconUpdateCallback(
 
     commitFraction = (DOUBLE)PhPerfInformation.CommittedPages / PhPerfInformation.CommitLimit;
 
-    PhInitFormatS(&format[0], L"Commit: ");
+    PhInitFormatS(&format[0], L"提交: ");
     PhInitFormatSize(&format[1], UInt32x32To64(PhPerfInformation.CommittedPages, PAGE_SIZE));
     PhInitFormatS(&format[2], L" (");
     PhInitFormatF(&format[3], commitFraction * 100, 2);
@@ -1372,7 +1372,7 @@ VOID PhNfpPhysicalHistoryIconUpdateCallback(
     physicalUsage = PhSystemBasicInformation.NumberOfPhysicalPages - PhPerfInformation.AvailablePages;
     physicalFraction = (DOUBLE)physicalUsage / PhSystemBasicInformation.NumberOfPhysicalPages;
 
-    PhInitFormatS(&format[0], L"Physical memory: ");
+    PhInitFormatS(&format[0], L"物理内存: ");
     PhInitFormatSize(&format[1], UInt32x32To64(physicalUsage, PAGE_SIZE));
     PhInitFormatS(&format[2], L" (");
     PhInitFormatF(&format[3], physicalFraction * 100, 2);
@@ -1502,7 +1502,7 @@ VOID PhNfpCpuUsageIconUpdateCallback(
         }
     }
 
-    *NewText = PhFormatString(L"CPU usage: %.2f%%%s", (PhCpuKernelUsage + PhCpuUserUsage) * 100, PhGetStringOrEmpty(maxCpuText));
+    *NewText = PhFormatString(L"CPU 占用率: %.2f%%%s", (PhCpuKernelUsage + PhCpuUserUsage) * 100, PhGetStringOrEmpty(maxCpuText));
     if (maxCpuText) PhDereferenceObject(maxCpuText);
 }
 
@@ -1577,7 +1577,7 @@ VOID PhNfpCpuUsageTextIconUpdateCallback(
         }
     }
 
-    *NewText = PhFormatString(L"CPU usage: %.2f%%%s", (PhCpuKernelUsage + PhCpuUserUsage) * 100, PhGetStringOrEmpty(maxCpuText));
+    *NewText = PhFormatString(L"CPU 占用率: %.2f%%%s", (PhCpuKernelUsage + PhCpuUserUsage) * 100, PhGetStringOrEmpty(maxCpuText));
     if (maxCpuText) PhDereferenceObject(maxCpuText);
 }
 
@@ -1714,7 +1714,7 @@ VOID PhNfpCommitTextIconUpdateCallback(
 
     commitFraction = (DOUBLE)PhPerfInformation.CommittedPages / PhPerfInformation.CommitLimit;
 
-    PhInitFormatS(&format[0], L"Commit: ");
+    PhInitFormatS(&format[0], L"提交: ");
     PhInitFormatSize(&format[1], UInt32x32To64(PhPerfInformation.CommittedPages, PAGE_SIZE));
     PhInitFormatS(&format[2], L" (");
     PhInitFormatF(&format[3], commitFraction * 100, 2);
@@ -1778,7 +1778,7 @@ VOID PhNfpPhysicalUsageTextIconUpdateCallback(
     physicalUsage = PhSystemBasicInformation.NumberOfPhysicalPages - PhPerfInformation.AvailablePages;
     physicalFraction = (DOUBLE)physicalUsage / PhSystemBasicInformation.NumberOfPhysicalPages;
 
-    PhInitFormatS(&format[0], L"Physical memory: ");
+    PhInitFormatS(&format[0], L"物理内存: ");
     PhInitFormatSize(&format[1], UInt32x32To64(physicalUsage, PAGE_SIZE));
     PhInitFormatS(&format[2], L" (");
     PhInitFormatF(&format[3], physicalFraction * 100, 2);
@@ -1830,11 +1830,11 @@ BOOLEAN PhNfpGetShowMiniInfoSectionData(
             break;
         case PH_TRAY_ICON_ID_COMMIT_HISTORY:
         case PH_TRAY_ICON_ID_COMMIT_TEXT:
-            Data->SectionName = L"Commit charge";
+            Data->SectionName = L"内存提交";
             break;
         case PH_TRAY_ICON_ID_PHYSICAL_HISTORY:
         case PH_TRAY_ICON_ID_PHYSICAL_TEXT:
-            Data->SectionName = L"Physical memory";
+            Data->SectionName = L"物理内存";
             break;
         }
 

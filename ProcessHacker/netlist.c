@@ -125,18 +125,18 @@ VOID PhInitializeNetworkTreeList(
     TreeNew_SetRedraw(hwnd, FALSE);
 
     // Default columns
-    PhAddTreeNewColumn(hwnd, PHNETLC_PROCESS, TRUE, L"Name", 100, PH_ALIGN_LEFT, 0, 0);
-    PhAddTreeNewColumn(hwnd, PHNETLC_LOCALADDRESS, TRUE, L"Local address", 120, PH_ALIGN_LEFT, 1, 0);
-    PhAddTreeNewColumn(hwnd, PHNETLC_LOCALPORT, TRUE, L"Local port", 50, PH_ALIGN_RIGHT, 2, DT_RIGHT);
-    PhAddTreeNewColumn(hwnd, PHNETLC_REMOTEADDRESS, TRUE, L"Remote address", 120, PH_ALIGN_LEFT, 3, 0);
-    PhAddTreeNewColumn(hwnd, PHNETLC_REMOTEPORT, TRUE, L"Remote port", 50, PH_ALIGN_RIGHT, 4, DT_RIGHT);
-    PhAddTreeNewColumn(hwnd, PHNETLC_PROTOCOL, TRUE, L"Protocol", 45, PH_ALIGN_LEFT, 5, 0);
-    PhAddTreeNewColumn(hwnd, PHNETLC_STATE, TRUE, L"State", 70, PH_ALIGN_LEFT, 6, 0);
-    PhAddTreeNewColumn(hwnd, PHNETLC_OWNER, TRUE, L"Owner", 80, PH_ALIGN_LEFT, 7, 0);
-    PhAddTreeNewColumnEx(hwnd, PHNETLC_TIMESTAMP, FALSE, L"Time stamp", 100, PH_ALIGN_LEFT, -1, 0, TRUE);
-    PhAddTreeNewColumn(hwnd, PHNETLC_LOCALHOSTNAME, FALSE, L"Local hostname", 120, PH_ALIGN_LEFT, -1, 0);
-    PhAddTreeNewColumn(hwnd, PHNETLC_REMOTEHOSTNAME, FALSE, L"Remote hostname", 120, PH_ALIGN_LEFT, -1, 0);
-    PhAddTreeNewColumn(hwnd, PHNETLC_PID, FALSE, L"PID", 50, PH_ALIGN_RIGHT, 0, DT_RIGHT);
+    PhAddTreeNewColumn(hwnd, PHNETLC_PROCESS, TRUE, L"名称", 100, PH_ALIGN_LEFT, 0, 0);
+    PhAddTreeNewColumn(hwnd, PHNETLC_LOCALADDRESS, TRUE, L"本地地址", 120, PH_ALIGN_LEFT, 1, 0);
+    PhAddTreeNewColumn(hwnd, PHNETLC_LOCALPORT, TRUE, L"本地端口", 50, PH_ALIGN_RIGHT, 2, DT_RIGHT);
+    PhAddTreeNewColumn(hwnd, PHNETLC_REMOTEADDRESS, TRUE, L"远程地址", 120, PH_ALIGN_LEFT, 3, 0);
+    PhAddTreeNewColumn(hwnd, PHNETLC_REMOTEPORT, TRUE, L"远程端口", 50, PH_ALIGN_RIGHT, 4, DT_RIGHT);
+    PhAddTreeNewColumn(hwnd, PHNETLC_PROTOCOL, TRUE, L"协议", 45, PH_ALIGN_LEFT, 5, 0);
+    PhAddTreeNewColumn(hwnd, PHNETLC_STATE, TRUE, L"状态", 70, PH_ALIGN_LEFT, 6, 0);
+    PhAddTreeNewColumn(hwnd, PHNETLC_OWNER, TRUE, L"所有者", 80, PH_ALIGN_LEFT, 7, 0);
+    PhAddTreeNewColumnEx(hwnd, PHNETLC_TIMESTAMP, FALSE, L"时间戳", 100, PH_ALIGN_LEFT, -1, 0, TRUE);
+    PhAddTreeNewColumn(hwnd, PHNETLC_LOCALHOSTNAME, FALSE, L"本地主机名", 120, PH_ALIGN_LEFT, -1, 0);
+    PhAddTreeNewColumn(hwnd, PHNETLC_REMOTEHOSTNAME, FALSE, L"远程主机名", 120, PH_ALIGN_LEFT, -1, 0);
+    PhAddTreeNewColumn(hwnd, PHNETLC_PID, FALSE, L"进程号", 50, PH_ALIGN_RIGHT, 0, DT_RIGHT);
 
     TreeNew_SetRedraw(hwnd, TRUE);
 
