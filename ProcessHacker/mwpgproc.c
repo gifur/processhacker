@@ -110,10 +110,10 @@ BOOLEAN PhMwpProcessesPageCallback(
             PPH_EMENU_ITEM menuItem;
             PPH_EMENU_ITEM columnSetMenuItem;
 
-            PhInsertEMenuItem(menu, PhCreateEMenuItem(0, ID_VIEW_HIDEPROCESSESFROMOTHERUSERS, L"&Hide processes from other users", NULL, NULL), startIndex);
-            PhInsertEMenuItem(menu, PhCreateEMenuItem(0, ID_VIEW_HIDESIGNEDPROCESSES, L"Hide si&gned processes", NULL, NULL), startIndex + 1);
-            PhInsertEMenuItem(menu, PhCreateEMenuItem(0, ID_VIEW_SCROLLTONEWPROCESSES, L"Scrol&l to new processes", NULL, NULL), startIndex + 2);
-            PhInsertEMenuItem(menu, PhCreateEMenuItem(0, ID_VIEW_SHOWCPUBELOW001, L"Show CPU &below 0.01", NULL, NULL), startIndex + 3);
+            PhInsertEMenuItem(menu, PhCreateEMenuItem(0, ID_VIEW_HIDEPROCESSESFROMOTHERUSERS, L"隐藏其他用户进程(&H)", NULL, NULL), startIndex);
+            PhInsertEMenuItem(menu, PhCreateEMenuItem(0, ID_VIEW_HIDESIGNEDPROCESSES, L"隐藏已签名进程", NULL, NULL), startIndex + 1);
+            PhInsertEMenuItem(menu, PhCreateEMenuItem(0, ID_VIEW_SCROLLTONEWPROCESSES, L"滚动到新进程", NULL, NULL), startIndex + 2);
+            PhInsertEMenuItem(menu, PhCreateEMenuItem(0, ID_VIEW_SHOWCPUBELOW001, L"显示 CPU 低于 0.01", NULL, NULL), startIndex + 3);
 
             if (PhCsHideOtherUserProcesses && (menuItem = PhFindEMenuItem(menu, 0, NULL, ID_VIEW_HIDEPROCESSESFROMOTHERUSERS)))
                 menuItem->Flags |= PH_EMENU_CHECKED;
@@ -136,9 +136,9 @@ BOOLEAN PhMwpProcessesPageCallback(
             }
 
             PhInsertEMenuItem(menu, PhCreateEMenuSeparator(), startIndex + 4);
-            PhInsertEMenuItem(menu, menuItem = PhCreateEMenuItem(0, ID_VIEW_ORGANIZECOLUMNSETS, L"Organi&ze column sets...", NULL, NULL), startIndex + 5);
-            PhInsertEMenuItem(menu, PhCreateEMenuItem(0, ID_VIEW_SAVECOLUMNSET, L"Sa&ve column set...", NULL, NULL), startIndex + 6);
-            PhInsertEMenuItem(menu, columnSetMenuItem = PhCreateEMenuItem(0, 0, L"Loa&d column set", NULL, NULL), startIndex + 7);
+            PhInsertEMenuItem(menu, menuItem = PhCreateEMenuItem(0, ID_VIEW_ORGANIZECOLUMNSETS, L"整理列表集...", NULL, NULL), startIndex + 5);
+            PhInsertEMenuItem(menu, PhCreateEMenuItem(0, ID_VIEW_SAVECOLUMNSET, L"保存列表集...", NULL, NULL), startIndex + 6);
+            PhInsertEMenuItem(menu, columnSetMenuItem = PhCreateEMenuItem(0, 0, L"加载列表集", NULL, NULL), startIndex + 7);
 
             // Add column set sub menu entries.
             {
